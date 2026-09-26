@@ -1,17 +1,56 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vigyapan Admin</title><link rel="stylesheet" href="../styles.css"><style>
-body{background:#f1f2f4}.admin-wrap{width:min(1400px,95%);margin:25px auto}.admin-top{display:flex;justify-content:space-between;align-items:center;gap:15px;background:#111;color:#fff;border-radius:18px;padding:16px 20px}.tabs{display:flex;gap:8px;overflow:auto;margin:15px 0}.tab{border:0;background:#fff;padding:11px 15px;border-radius:10px;font-weight:700;white-space:nowrap}.tab.active{background:#111;color:#fff}.panel{display:none;background:#fff;border:1px solid #e4e4e7;border-radius:18px;padding:20px}.panel.active{display:block}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.full{grid-column:1/-1}.field label{display:block;font-size:12px;font-weight:800;margin:0 0 5px}.table-wrap{overflow:auto}.atable{width:100%;border-collapse:collapse;min-width:850px}.atable th,.atable td{border-bottom:1px solid #eee;padding:8px;text-align:left;vertical-align:top}.atable input,.atable textarea,.atable select{width:100%;padding:8px;border:1px solid #ddd;border-radius:8px}.admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.login{width:min(420px,92%);margin:8vh auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.1)}.toast{position:fixed;right:15px;bottom:15px;background:#111;color:#fff;padding:12px 16px;border-radius:12px;display:none;z-index:1000}.danger{background:#c62828;color:#fff}.small{font-size:12px}.file{padding:9px;border:1px dashed #aaa;border-radius:10px;background:#fafafa;width:100%}
-</style></head><body>
-<div id="login" class="login"><h1>Vigyapan Admin</h1><p class="muted">Secure CMS login</p><form id="loginForm" class="contact-form"><input class="input" name="username" value="admin" required><input class="input" type="password" name="password" placeholder="Password" required><button class="btn btn-dark">Login</button><div id="loginMsg" class="muted"></div></form></div>
-<div id="app" class="admin-wrap" style="display:none">
-<div class="admin-top"><div><b>Vigyapan CMS</b><div class="small">Mobile + PC editing</div></div><div class="admin-actions"><a class="btn btn-light" href="../" target="_blank">Public Website</a><button class="btn btn-light" id="logout">Logout</button></div></div>
-<div class="tabs" id="tabs"></div>
-<section class="panel active" id="panel-settings"><h2>Website / Home / Contact</h2><div id="settingsForm" class="formgrid"></div><div class="admin-actions"><button class="btn btn-dark" id="saveSettings">Save Website Settings</button></div><div class="admin-actions"><input class="file" id="logoFile" type="file" accept="image/*"><button class="btn btn-accent" id="uploadLogo">Upload & Save Logo</button><input class="file" id="footerFile" type="file" accept="image/*"><button class="btn btn-accent" id="uploadFooter">Upload Footer Image</button></div><hr><h3>Change Admin Password</h3><form id="passwordForm" class="formgrid"><input class="input" name="old" type="password" placeholder="Old password" required><input class="input" name="new" type="password" placeholder="New password (8+ chars)" required><button class="btn btn-accent">Change Password</button></form></section>
-<section class="panel" id="panel-services"><h2>Services</h2><div id="servicesTable"></div><button class="btn btn-dark" onclick="addRow('services')">+ Add Service</button></section>
-<section class="panel" id="panel-plans"><h2>Plans</h2><p class="muted small">Features ko <b>|</b> se separate karo. Price blank rakho ya SHOW_PRICE = YES/NO karo. Example old price 5000, price 4500 + offer text = “Limited Offer”.</p><div id="plansTable"></div><button class="btn btn-dark" onclick="addRow('plans')">+ Add Plan</button></section>
-<section class="panel" id="panel-gallery"><h2>Gallery / Hero Slider / Phone Slider</h2><div class="admin-actions"><input class="file" id="galleryFile" type="file" accept="image/*,video/*"><input class="input" id="galleryTitle" placeholder="Title"><button class="btn btn-dark" id="uploadGallery">Upload & Add</button></div><p class="small muted">Images browser me automatically compress hoti hain before upload. Videos original upload hote hain; browser-side video transcoding is not reliable.</p><div id="galleryTable"></div></section>
-<section class="panel" id="panel-products"><h2>Products + Cart</h2><div class="admin-actions"><input class="file" id="productFile" type="file" accept="image/*"><input class="input" id="productId" placeholder="Existing Product ID (optional)"><button class="btn btn-dark" id="uploadProduct">Upload Product Image</button></div><div id="productsTable"></div><button class="btn btn-dark" onclick="addRow('products')">+ Add Product</button></section>
-<section class="panel" id="panel-socials"><h2>Social / Extra Buttons</h2><div id="socialsTable"></div><button class="btn btn-dark" onclick="addRow('socials')">+ Add Link</button></section>
-<section class="panel" id="panel-leads"><h2>Enquiries</h2><div id="leadsTable"></div></section>
-<section class="panel" id="panel-orders"><h2>Orders</h2><div id="ordersTable"></div></section>
-</div><div id="toast" class="toast"></div>
-<script src="../config.js"></script><script src="admin.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vigyapan | Where Brands gets Noticed</title>
+<meta name="description" content="Vigyapan - Creative Advertising, Branding and Digital Solutions">
+<link rel="manifest" href="manifest.json"><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="topbar" class="topbar"><div class="container"><span id="topContact"></span><span id="topEmail"></span></div></div>
+<header class="nav"><div class="container navin">
+<a class="brand" href="#"><img id="brandLogo" alt="Vigyapan"><span id="brandName">Vigyapan</span></a>
+<button class="menu" id="menuBtn">Menu</button>
+<nav class="navlinks" id="navlinks">
+<a href="#home">Home</a><a href="#services">Services</a><a href="#plans">Plans</a><a href="#gallery">Gallery</a><a href="#products">Products</a><a href="#about">About</a><a href="#contact">Contact</a>
+</nav></div></header>
+
+<main>
+<section id="home" class="hero">
+<div id="heroSlides" class="hero-slides"></div>
+<div class="container hero-content">
+<div class="eyebrow">VIGYAPAN</div><h1 id="heroTitle">Where Brands gets Noticed</h1><p id="heroText"></p>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-light" href="#services">Explore Services</a><a class="btn btn-accent" id="heroWA" target="_blank">WhatsApp Enquiry</a></div>
+</div></section>
+
+<section id="services" class="section"><div class="container"><div class="section-head"><div><div class="eyebrow">WHAT WE DO</div><h2>Services</h2><p class="muted">Edit these anytime from the admin panel.</p></div></div><div id="servicesGrid" class="grid services"></div></div></section>
+
+<section id="plans" class="section alt"><div class="container"><div class="section-head"><div><div class="eyebrow">PACKAGES</div><h2>Plans</h2><p class="muted">Flexible packages for ongoing brand promotion.</p></div></div><div id="plansGrid" class="grid plans"></div></div></section>
+
+<section id="gallery" class="section"><div class="container"><div class="section-head"><div><div class="eyebrow">WORK SHOWCASE</div><h2>Gallery</h2></div></div><div id="galleryGrid" class="grid gallery"></div></div></section>
+
+<section id="products" class="section alt"><div class="container"><div class="section-head"><div><div class="eyebrow">SHOP / ENQUIRE</div><h2>Products</h2><p class="muted">Add visiting cards, notepads, posters, bill books and any new product from admin.</p></div></div><div id="productsGrid" class="grid products"></div></div></section>
+
+<section id="showcase" class="section"><div class="container two">
+<div><div class="eyebrow">MOBILE SHOWCASE</div><h2>Your designs, always in motion.</h2><p class="muted">Upload images from the admin panel and this phone-style frame will automatically slide through them.</p></div>
+<div class="phone-mockup"><div class="phone-screen" id="phoneScreen"></div></div>
+</div></section>
+
+<section id="about" class="section alt"><div class="container two"><div><div class="eyebrow">ABOUT US</div><h2 id="aboutTitle">About Vigyapan</h2></div><div><p id="aboutText" class="muted" style="font-size:18px"></p></div></div></section>
+
+<section id="contact" class="section"><div class="container"><div class="section-head"><div><div class="eyebrow">LET'S TALK</div><h2>Enquiry & Contact</h2></div></div>
+<div class="grid contact-grid">
+<div class="contact-card"><h3>Direct Contact</h3><p id="contactPhones"></p><p id="contactEmail"></p><p id="contactAddress"></p><div class="socials" id="socials"></div><p><a id="mapLink" class="btn btn-dark" target="_blank">Open Map</a></p></div>
+<div class="contact-card"><form id="leadForm" class="contact-form"><input class="input" name="name" required placeholder="Your name"><input class="input" name="phone" required placeholder="Mobile number"><input class="input" name="email" placeholder="Email"><textarea class="textarea" name="message" placeholder="Tell us what you need"></textarea><button class="btn btn-dark">Send Enquiry</button><div id="leadMsg" class="muted"></div></form></div>
+<div class="contact-card" style="padding:0;overflow:hidden"><iframe id="mapFrame" title="Google Map" style="border:0;width:100%;height:390px" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+</div></div></section>
+</main>
+
+<footer class="footer"><div class="container footergrid"><div><img id="footerImage" style="max-width:220px;max-height:90px;object-fit:contain;margin-bottom:12px;display:none"><h2 id="footerName">Vigyapan</h2><p id="footerText"></p></div><div><h4>Quick Links</h4><p><a href="#services">Services</a></p><p><a href="#plans">Plans</a></p><p><a href="#products">Products</a></p><p><a href="#contact">Contact</a></p></div><div><h4>Connect</h4><div id="footerSocials" class="socials"></div></div></div><div class="container" style="margin-top:30px;padding-top:20px;border-top:1px solid #2d2d2d;font-size:13px">© <span id="year"></span> Vigyapan. All rights reserved.</div></footer>
+
+<a class="floating-wa" id="floatingWA" target="_blank" aria-label="WhatsApp">◉</a>
+<div class="cart" id="cartButton">Cart <span id="cartCount">0</span></div>
+<div class="modal" id="mediaModal"><div class="modal-box"><button class="close" id="modalClose">×</button><div id="modalContent"></div></div></div>
+<div class="modal" id="cartModal"><div class="modal-box" style="width:min(620px,100%)"><button class="close" id="cartClose">×</button><h2>Product Enquiry</h2><div id="cartItems"></div><form id="orderForm" class="contact-form"><input class="input" name="name" required placeholder="Your name"><input class="input" name="phone" required placeholder="Mobile number"><textarea class="textarea" name="note" placeholder="Extra message"></textarea><button class="btn btn-accent">Send Order on WhatsApp</button></form></div></div>
+<script src="config.js"></script><script src="app.js"></script><script>if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");</script>
+</body></html>
